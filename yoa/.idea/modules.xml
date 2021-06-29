@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/demo.iml" filepath="$PROJECT_DIR$/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yoa.iml" filepath="$PROJECT_DIR$/yoa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yoa-mail/yoa-mail.iml" filepath="$PROJECT_DIR$/yoa-mail/yoa-mail.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yoa-server/yoa-server.iml" filepath="$PROJECT_DIR$/yoa-server/yoa-server.iml" />
+    </modules>
+  </component>
+</project>

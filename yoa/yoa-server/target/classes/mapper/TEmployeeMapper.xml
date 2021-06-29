@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoa.mapper.TEmployeeMapper">
+
+    <resultMap id="BaseResultMap" type="com.yoa.entity.TEmployee">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="job_number" property="jobNumber"/>
+        <result column="birthday" property="birthday"/>
+        <result column="email" property="email"/>
+        <result column="phoneNum" property="phonenum"/>
+        <result column="address" property="address"/>
+        <result column="nation" property="nation"/>
+        <result column="university" property="university"/>
+        <result column="education" property="education"/>
+        <result column="entry_time" property="entryTime"/>
+        <result column="depname" property="department"/>
+        <result column="position" property="position"/>
+        <result column="contract_kstime" property="contractKstime"/>
+        <result column="contract_jstime" property="contractJstime"/>
+        <result column="time_limit" property="timeLimit"/>
+    </resultMap>
+
+    <select id="getEmployees" resultMap="BaseResultMap">
+        select
+            emp.id,
+            emp.name,
+            emp.gender,
+            emp.job_number,
+            emp.birthday,
+            emp.email,
+            emp.phoneNum,
+            emp.address,
+            emp.nation,
+            emp.university,
+            emp.education,
+            emp.entry_time,
+            dep.name as depname,
+            emp.position,
+            emp.contract_kstime,
+            emp.contract_jstime,
+            emp.time_limit
+        from
+            t_employee emp,
+            t_department dep
+        where
+            emp.department = dep.id
+    </select>
+
+    <select id="getEmployee" resultMap="BaseResultMap">
+        select
+            emp.id,
+            emp.name,
+            emp.gender,
+            emp.job_number,
+            emp.birthday,
+            emp.email,
+            emp.phoneNum,
+            emp.address,
+            emp.nation,
+            emp.university,
+            emp.education,
+            emp.entry_time,
+            dep.name as depname,
+            emp.position,
+            emp.contract_kstime,
+            emp.contract_jstime,
+            emp.time_limit
+        from
+            t_employee emp,
+            t_department dep
+        where
+            emp.department = dep.id
+        and
+            emp.id = #{userid}
+
+    </select>
+</mapper>

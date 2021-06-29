@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoa.mapper.TDepartmentMapper">
+
+    <!--返回的结果定义为map集合-->
+    <resultMap id="BaseResultMap" type="com.yoa.entity.TDepartment">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parentId" property="parentId"/>
+        <result column="depPath" property="depPath"/>
+        <result column="enable" property="enable"/>
+        <result column="isParent" property="isParent"/>
+    </resultMap>
+
+
+    <!--通用查询结果列，定义重复的sql语句片段-->
+    <sql id="Base_Column_List">
+        id, name, parentId, depPath, enable, isParent
+    </sql>
+
+
+    <!--map集合，继承BaseResultMap集合-->
+    <resultMap id="DepartmentWithChildren" type="com.yoa.entity.TDepartment" extends="BaseResultMap">
+        <!--嵌套查询，查询department类中的children字段-->
+        <!--递归调用，将下面select查出来的parentId这条记录的id值作为parentId的值传入，查出children-->
+        <collection property="children" ofType="com.yoa.entity.TDepartment" select="com.yoa.mapper.TDepartmentMapper.getAllDepartments" column="id">
+
+        </collection>
+    </resultMap>
+
+    <!--查询语句，将查询到的结果映射到一个resultMap集合中-->
+    <select id="getAllDepartments" resultMap="DepartmentWithChildren">
+        select
+        <!--引用上面定义的查询结果列-->
+        <include refid="Base_Column_List"></include>
+        from t_department
+        where parentId = #{parentId}
+    </select>
+
+    <!--添加部门，通过mysql存储过程,CALLABLE:执行存储过程-->
+    <!--变量名称，输入/输出，数据类型-->
+    <!--在数据库中创建addDep存储过程，在mybatis中调用-->
+    <select id="appDep" statementType="CALLABLE">
+        {call addDep(#{name,mode=IN,jdbcType=VARCHAR},#{parentId,mode=IN,jdbcType=INTEGER},#{enable,mode=IN,jdbcType=BOOLEAN},
+            #{result,mode=OUT,jdbcType=INTEGER},#{id,mode=OUT,jdbcType=INTEGER})}
+    </select>
+
+    <select id="delDep" statementType="CALLABLE">
+        {call delDep(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER})}
+    </select>
+
+</mapper>

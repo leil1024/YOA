@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>测试邮件</title>
+</head>
+<body>
+    欢迎<span th:text="${name}"></span>加入，信息如下
+    <table border="1">
+        <tr>
+            <td>姓名</td>
+            <td th:text="${name}"></td>
+        </tr>
+        <tr>
+            <td>工号</td>
+            <td th:text="${jobNumber}"></td>
+        </tr>
+        <tr>
+            <td>职位</td>
+            <td th:text="${position}"></td>
+        </tr>
+        <tr>
+            <td>部门</td>
+            <td th:text="${department}"></td>
+        </tr>
+    </table>
+</body>
+</html>

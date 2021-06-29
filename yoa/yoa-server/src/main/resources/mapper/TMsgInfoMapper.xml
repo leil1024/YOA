@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoa.mapper.TMsgInfoMapper">
+
+    <select id="getToUserId" parameterType="list" resultType="string">
+        select distinct to_user_id
+        from t_msg_info
+        where from_user_id = #{fromUserId}
+    </select>
+
+    <select id="getFromUserId" parameterType="list" resultType="string">
+        select distinct from_user_id
+        from t_msg_info
+        where to_user_id = #{fromUserId}
+    </select>
+
+
+    <select id="getContext" resultType="java.util.HashMap">
+        select content,create_time
+        from t_msg_info
+        where obj_id = #{objid}
+    </select>
+</mapper>

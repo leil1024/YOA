@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoa.mapper.TRoleMenuMapper">
+
+    <select id="getMenuID" parameterType="list" resultType="string">
+        select menuId from t_role_menu where roleId = #{roleid}
+    </select>
+
+    <!--根据角色ID获取用户的ID列表-->
+    <select id="getUserId" parameterType="list" resultType="string">
+        select userId from t_role_user where roleId = #{roleid}
+    </select>
+
+
+    <!--删除角色对应的菜单-->
+    <delete id="delRoleMenu">
+        delete from t_role_menu
+            where roleId = #{roleid}
+            and menuId = #{menuid}
+    </delete>
+</mapper>
