@@ -44,7 +44,12 @@
                     <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
                 </el-breadcrumb>
                 <el-divider><i class="el-icon-s-promotion"></i></el-divider>
-                <router-view/>
+                <div v-if="this.$route.path==='/home'">
+                    <Carousel/>
+                </div>
+                <div v-else>
+                    <router-view/>
+                </div>
             </el-main>
         </el-container>
 
@@ -53,10 +58,12 @@
 
 <script>
     import chat from "./chat/chat";
+    import Carousel from "../components/home/Carousel";
     export default {
         name: "Home",
         components:{
-          chat
+          chat,
+          Carousel
         },
         computed:{
             routes(){
@@ -95,6 +102,7 @@
             }
         },
         mounted() {
+            console.log(this.$route.path)
             this.initSession(99999999)
             this.$store.dispatch('initData');
         }
@@ -129,4 +137,9 @@
     .el-icon-arrow-down {
         font-size: 12px;
     }
+
+    /*.el-carousel__container {*/
+    /*    position: relative;*/
+    /*    height: 440px;*/
+    /*}*/
 </style>
